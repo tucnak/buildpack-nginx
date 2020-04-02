@@ -70,10 +70,12 @@ if [[ ! -f "sigil" ]]; then
   tar xzf "${SIGIL_TARBALL}" && rm -rf "${SIGIL_TARBALL}"
 fi
 
-git clone https://github.com/google/ngx_brotli
-cd ngx_brotli
-git submodule update --init
-cd ..
+if [[ ! -d "ngx_brotli" ]]; then
+  git clone https://github.com/google/ngx_brotli
+  cd ngx_brotli
+  git submodule update --init
+  cd ..
+fi
 
 mkdir -p "$BUILD_DIR/sigil"
 cp -r sigil "$BUILD_DIR/sigil/"
