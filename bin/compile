@@ -71,6 +71,9 @@ if [[ ! -f "sigil" ]]; then
 fi
 
 git clone https://github.com/google/ngx_brotli
+cd ngx_brotli
+git submodule update --init
+cd ..
 
 mkdir -p "$BUILD_DIR/sigil"
 cp -r sigil "$BUILD_DIR/sigil/"
