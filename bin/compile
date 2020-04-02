@@ -2,9 +2,9 @@
 # bin/compile <build-dir> <cache-dir>
 set -eo pipefail; [[ $TRACE ]] && set -x
 
-NGINX_VERSION="1.17.0"
+NGINX_VERSION="1.17.9"
 NGINX_TARBALL="nginx-${NGINX_VERSION}.tar.gz"
-PCRE_VERSION="8.43"
+PCRE_VERSION="8.44"
 PCRE_TARBALL="pcre-${PCRE_VERSION}.tar.gz"
 SIGIL_VERSION="0.4.0"
 SIGIL_TARBALL="sigil_${SIGIL_VERSION}_Linux_x86_64.tgz"
@@ -70,6 +70,8 @@ if [[ ! -f "sigil" ]]; then
   tar xzf "${SIGIL_TARBALL}" && rm -rf "${SIGIL_TARBALL}"
 fi
 
+git clone https://github.com/google/ngx_brotli
+
 mkdir -p "$BUILD_DIR/sigil"
 cp -r sigil "$BUILD_DIR/sigil/"
 
@@ -113,7 +115,8 @@ if [[ ! -f "${CACHE_DIR}/bin/nginx" ]]; then
     --without-http_upstream_keepalive_module \
     --without-mail_pop3_module \
     --without-mail_imap_module \
-    --without-mail_smtp_module
+    --without-mail_smtp_module \
+    --add-module=../ngx_brotli
 
   sed -i "/CFLAGS/s/ \-O //g" objs/Makefile
 
