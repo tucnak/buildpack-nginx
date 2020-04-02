@@ -25,6 +25,7 @@ types {
     image/svg+xml                         svg svgz;
     image/webp                            webp;
 
+    application/wasm                      wasm;
     application/font-woff                 woff;
     application/java-archive              jar war ear;
     application/json                      json;
